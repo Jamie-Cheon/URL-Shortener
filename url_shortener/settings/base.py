@@ -33,6 +33,10 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+# DJANGO_NATIVE_APPS = []
+# THIRD_PARTY_APPS = []
+# INSTALLED_APPS = DJANGO_NATIVE_APPS + THIRD_PARTY_APPS
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,13 +46,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 3rd party
+    'django_extensions',
     'rest_framework',
     'rest_framework.authtoken',
 
     # own
     'core',
     'users',
-    'urls',
+    'links',
 ]
 
 SITE_ID = 1
@@ -133,3 +138,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 TEST = False
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+}

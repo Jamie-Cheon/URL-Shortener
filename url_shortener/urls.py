@@ -17,6 +17,8 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
+
+from links.views import LinkViewSet
 from users.views import UserViewSet
 
 urlpatterns = [
@@ -27,6 +29,5 @@ urlpatterns = [
 urlpatterns += [
     path('api-auth/', include('rest_framework.urls')),
     url(r'^login/', obtain_auth_token),
-    url(r'^logout/$', UserViewSet.as_view(actions={'post': 'logout'})),
 
 ]

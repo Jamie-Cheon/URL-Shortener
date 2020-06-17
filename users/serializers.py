@@ -1,10 +1,10 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from urls.serializers import UrlSerializer
+from links.serializers import LinkSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
-    urls = UrlSerializer(many=True, read_only=True)
+    urls = LinkSerializer(many=True, read_only=True)
     password = serializers.CharField(write_only=True)
 
     class Meta:

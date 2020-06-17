@@ -14,10 +14,6 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
     @action(detail=False)
-    def deactivate(self, request, *args, **kwargs):
-        return super().destroy(self, request, *args, **kwargs)
-
-    @action(detail=False)
     def logout(self, request):
         # permission_classes = (AllowAny,)
         try:
