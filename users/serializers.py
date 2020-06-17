@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from .models import User
 from rest_framework import serializers
 from links.serializers import LinkSerializer
 
@@ -9,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'password', 'urls',)
+        fields = ('id', 'email', 'password', 'membership', 'urls',)
 
     def create(self, validated_data):
         user = super(UserSerializer, self).create(validated_data)

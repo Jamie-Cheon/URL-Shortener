@@ -1,9 +1,19 @@
 from django.db import models
-from django.contrib.auth.models import User
+from users.models import User
 from hashlib import md5
+import time
+import string
+from random import randint
 
-base_list = list("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
-base = len(base_list)
+charmap = string.ascii_letters + string.digits
+
+def encode_id(num):
+    result = []
+    while num:
+        result.append(charmap[num % 62])
+        num //= 62
+
+    return "".join(reversed(result))
 
 
 class Link(models.Model):
@@ -22,49 +32,20 @@ class Link(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.short_url = md5(self.origin_url.encode()).hexdigest()[:10]
+            millis = int(round(time.time() * 1000))
+            encoded = md5(self.origin_url.encode()).hexdigest()[:10]
+            url_Num = 0
+            ran_num = 0
 
+            # generate url to integers
+            for i in encoded:
+                url_Num += ord(i)
+
+            # generate random integers
+            for _ in range(100):
+                ran_num = randint(0, 100)
+
+            self.short_url = encode_id(millis) + encode_id(url_Num) + encode_id(ran_num)
         return super().save(*args, **kwargs)
 
-
-
-
-
-
-
-
-
-
-    # def save(self, *args, **kwargs):
-    #     print(self.id, self.origin_url)
-    #     if self.short_url == '':
-    #         self.short_url = self.get_short_id
-    #         print('this is shortened url:', self.short_url)
-    #     super(Url, self).save(*args, **kwargs)
-    #
-    # @property
-    # def get_short_id(self):
-    #     print('this is self.id: ', self.id)
-    #     res = self.encode_id(self.id)
-    #     return res
-    #
-    # def encode_id(self, num):
-    #     print('This is encode_id func')
-    #     print('num: ', num)
-    #     result = []
-    #     while num:
-    #         result.append(base_list[num % base])
-    #         num //= base
-    #
-    #     return "".join(reversed(result))
-
-
-
-    # @staticmethod
-    # def decode_id(code: str):
-    #     num = 0
-    #     code_list = list(code)
-    #     for index, code in enumerate(reversed(code_list)):
-    #         num += base_list.index(code) * base ** index
-    #     return num
 

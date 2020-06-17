@@ -31,30 +31,30 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
 # Application definition
 
-# DJANGO_NATIVE_APPS = []
-# THIRD_PARTY_APPS = []
-# INSTALLED_APPS = DJANGO_NATIVE_APPS + THIRD_PARTY_APPS
-
-INSTALLED_APPS = [
+DJANGO_NATIVE_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # 3rd party
+]
+THIRD_PARTY_APPS = [
     'django_extensions',
     'rest_framework',
     'rest_framework.authtoken',
-
-    # own
+]
+OWN_APPS = [
     'core',
     'users',
     'links',
 ]
+
+INSTALLED_APPS = DJANGO_NATIVE_APPS + THIRD_PARTY_APPS + OWN_APPS
+
 
 SITE_ID = 1
 
@@ -143,4 +143,11 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
     ),
+    'DEFAULT_PAGINATION_CLASS': 'core.paginations.CustomCursorPagination',
+    'DEFAULT_PERMISSION_CLASSES': [
+        'core.permissions.CustomPermission',
+    ],
+
 }
+
+AUTH_USER_MODEL = 'users.User'
