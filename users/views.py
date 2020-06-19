@@ -24,12 +24,11 @@ class UserViewSet(viewsets.ModelViewSet):
         email = serializer.validated_data['email']
         password = serializer.validated_data['password']
         user = authenticate(email=email, password=password)
-
         if user is not None:
             if user.is_active:
                 token, created = Token.objects.get_or_create(user=user)
                 login(request, user)
-                return Response({'token': token.key, 'user_id': user.pk}, status=status.HTTP_200_OK)
+                return Response({'token': token.key, 'email': user.email}, status=status.HTTP_200_OK)
             else:
                 return Response(status=status.HTTP_404_NOT_FOUND)
         else:
