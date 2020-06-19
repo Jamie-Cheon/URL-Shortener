@@ -5,7 +5,9 @@ from links.serializers import LinkSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     urls = LinkSerializer(many=True, read_only=True)
+    email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
+    membership = serializers.ReadOnlyField()
 
     class Meta:
         model = User

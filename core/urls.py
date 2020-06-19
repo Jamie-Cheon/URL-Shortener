@@ -1,4 +1,5 @@
 from rest_framework import routers
+from rest_framework.authtoken.views import obtain_auth_token
 
 from . import views
 
@@ -8,3 +9,5 @@ router.register(r'urls', views.LinkViewSet)                # GET(short_url lists
 router.register(r'urls/redirect/*', views.RedirectViewSet)
 urlpatterns = router.urls
 
+
+obtain_auth_token

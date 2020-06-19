@@ -1,5 +1,7 @@
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.utils import timezone
 
 MEMBERSHIP_CHOICES = (
     (0, 'VIP'),
@@ -50,8 +52,9 @@ class User(AbstractUser):
     """
     email = models.EmailField(verbose_name='email', max_length=255, unique=True)    # Made the email field unique
 
-    username = models.CharField(max_length=30)
-    membership = models.SmallIntegerField(choices=MEMBERSHIP_CHOICES)
+    username = models.CharField(max_length=30, unique=True)
+    membership = models.SmallIntegerField(choices=MEMBERSHIP_CHOICES, null=True)
+    created = models.DateTimeField(default=timezone.now)
 
     objects = UserManager()   # Replace the default model manager with custom UserManager
     USERNAME_FIELD = 'email'  # Set the USERNAME_FIELD (which defines the unique identifier for the User model) to email

@@ -2,9 +2,10 @@ from rest_framework.throttling import UserRateThrottle
 
 
 class VIPThrottle(UserRateThrottle):
-    rate = '5/minute'
+    rate = '20/day'
 
 
 class NormalThrottle(UserRateThrottle):
-    rate = '1/minute'
+    rate = '5/day'
+
 

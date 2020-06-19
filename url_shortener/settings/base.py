@@ -141,13 +141,13 @@ TEST = False
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'core.paginations.CustomCursorPagination',
     'DEFAULT_PERMISSION_CLASSES': [
         'core.permissions.CustomPermission',
     ],
-
 }
 
 AUTH_USER_MODEL = 'users.User'

@@ -21,7 +21,8 @@ class Link(models.Model):
     short_url = models.URLField(unique=True)
     clicks = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True, verbose_name='created')
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='links')
+    owner = models.ForeignKey(User, null=True, on_delete=models.CASCADE, related_name='links')
+
 
     def __repr__(self):
         return f'origin url: {self.origin_url}'

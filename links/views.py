@@ -17,7 +17,6 @@ class LinkViewSet(viewsets.ModelViewSet):
             super().check_throttles(request)
 
     def get_throttles(self):
-        print('membership : ', self.request.user.membership)
         if self.request.user.membership == 0:
             return [VIPThrottle()]
         else:
@@ -31,4 +30,5 @@ class RedirectViewSet(viewsets.ModelViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
+        Link.clicked(self=instance)
         return redirect(instance.origin_url)
