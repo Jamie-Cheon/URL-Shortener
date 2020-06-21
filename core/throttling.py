@@ -1,11 +1,14 @@
-from rest_framework.throttling import UserRateThrottle
+from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 
 
 class VIPThrottle(UserRateThrottle):
-    rate = '20/day'
+    rate = '30/day'
 
 
 class NormalThrottle(UserRateThrottle):
-    rate = '5/day'
+    rate = '10/day'
 
+
+class AnonThrottle(AnonRateThrottle):
+    rate = '3/day'
 

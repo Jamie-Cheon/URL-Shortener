@@ -5,6 +5,7 @@ from .models import Link
 class LinkSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.email')
     short_url = serializers.ReadOnlyField()
+    clicks = serializers.ReadOnlyField()
 
     class Meta:
         model = Link

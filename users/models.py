@@ -29,7 +29,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, username='', password=None, **extra_fields):
+    def create_user(self, email, username, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
         return self._create_user(email, username, password, **extra_fields)
@@ -52,7 +52,7 @@ class User(AbstractUser):
     """
     email = models.EmailField(verbose_name='email', max_length=255, unique=True)    # Made the email field unique
 
-    username = models.CharField(max_length=30, unique=True)
+    username = models.CharField(max_length=30, null=True)
     membership = models.SmallIntegerField(choices=MEMBERSHIP_CHOICES, null=True)
     created = models.DateTimeField(default=timezone.now)
 
